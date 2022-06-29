@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
@@ -12,6 +12,7 @@ export class ProductUpdateComponent implements OnInit {
 
   private productService: ProductService
   private router: Router
+  private routerActive: ActivatedRoute
 
   product: Product = {
     id:0,
@@ -19,16 +20,21 @@ export class ProductUpdateComponent implements OnInit {
     price: 0.0
   }
 
-  constructor(productService: ProductService, router: Router) {
+  constructor(productService: ProductService, router: Router, routerActive:ActivatedRoute) {
     this.productService = productService
     this.router = router
+    this.routerActive = routerActive
   }
 
   ngOnInit(): void {
-
+      const id:any = this.routerActive.snapshot.paramMap.get('id')
+      this.productService.readById(id).subscribe(product => {
+        this.product = product
+      })
   }
 
   updateProduct(): void {
+      
    }
 
   cancel(): void {
