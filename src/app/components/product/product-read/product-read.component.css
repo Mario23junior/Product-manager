@@ -8,3 +8,13 @@ ul,li {
 table {
     width: 100%;
 }
+
+.edit > i{
+    color: yellow;
+    margin-right: 12px;
+}
+
+
+.delete > i {
+    color: rgb(255, 0, 0);
+}
