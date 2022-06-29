@@ -38,6 +38,8 @@ export class ProductDeleteComponent implements OnInit {
   delete():void{
     const id: any = this.routerActive.snapshot.paramMap.get('id')
     this.productService.delete(id).subscribe(product => {
+      this.router.navigate(['/products'])
+      this.productService.showMessage(`O produto ${this.product.name}foi excluido com sucesso`)
       this.product = product
     })
   }
