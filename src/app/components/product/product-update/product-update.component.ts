@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
@@ -15,33 +16,34 @@ export class ProductUpdateComponent implements OnInit {
   private routerActive: ActivatedRoute
 
   product: Product = {
-    id:0,
+    id: 0,
     name: '',
     price: 0.0
   }
 
-  constructor(productService: ProductService, router: Router, routerActive:ActivatedRoute) {
+  constructor(productService: ProductService, router: Router, routerActive: ActivatedRoute) {
     this.productService = productService
     this.router = router
     this.routerActive = routerActive
   }
 
   ngOnInit(): void {
-      const id:any = this.routerActive.snapshot.paramMap.get('id')
-      this.productService.readById(id).subscribe(product => {
-        this.product = product
-      })
+    const id: any = this.routerActive.snapshot.paramMap.get('id')
+    this.productService.readById(id).subscribe(product => {
+      this.product = product
+    })
   }
 
   updateProduct(): void {
-      this.productService.update(this.product).subscribe(() => {
-        this.productService.showMessage(`O produto ${this.product.name} foi alterado`)
-        this.router.navigate(['/products'])
-      })
-   }
+    this.productService.update(this.product).subscribe(() => {
+      this.productService.showMessage(`O produto ${this.product.name} foi alterado`)
+      this.router.navigate(['/products'])
+    })
+  }
 
   cancel(): void {
     this.router.navigate(['/products'])
   }
+
 
 }
